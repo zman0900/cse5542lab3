@@ -30,6 +30,7 @@ protected:
 	static GlGlut *instance;
 	int screen_width;
 	int screen_height;
+	cse::MESH *mesh;
 	
 	// Glut callbacks
 	void display();
