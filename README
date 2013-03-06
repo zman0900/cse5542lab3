@@ -1,0 +1,50 @@
+CSE 5542 Lab 3
+Dan Ziemba
+
+Compile instructions
+====================
+
+Linux
+-----
+Run the following in the source directory:
+	cmake .
+	make
+
+Windows
+-------
+A Visual Studio 2012 solution file is included.
+Ensure that you have (free)glut and glew installed and Visual Studio can them.
+
+For a 64 bit system and using freeglut, the following files in these locations
+might work:
+	C:\Windows\SysWOW64\freeglut.dll
+	C:\Windows\SysWOW64\glew32.dll
+	C:\Windows\SysWOW64\glew32mx.dll
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\freeglut.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\freeglut_ext.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\freeglut_std.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\glew.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\glut.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\glxew.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\GL\wglew.h
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\freeglut.lib
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32.lib
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32mxs.lib
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32mx.lib
+	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32s.lib
+
+Running the program
+===================
+
+Linux
+-----
+From the source directory, run:
+	./lab3
+
+Windows
+-------
+Find and double click cse5542lab3.exe or run from command prompt
+
+Program instructions
+====================
+Running the program will display instructions on a console standard output.
