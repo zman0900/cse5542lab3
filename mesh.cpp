@@ -12,9 +12,9 @@ void Mesh::build_triangle_norms() {
 		float *p2 = verts[triangles[i].index[2]].pos;
 
 		float e0[3], e1[3];
-		for(int i=0; i<3; i++) {
-			e0[i]=p1[i]-p0[i];
-			e1[i]=p2[i]-p0[i];
+		for(int j=0; j<3; j++) {
+			e0[j]=p1[j]-p0[j];
+			e1[j]=p2[j]-p0[j];
 		}
 		cross(e1, e0, &triangle_norms[i*3]);
 		normalize(&triangle_norms[i*3]);
