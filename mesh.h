@@ -27,15 +27,10 @@ typedef struct {
 	int index[3];
 } Triangle;
 
-typedef struct {
-	float norm[3];
-} TriNorm;
-
 class Mesh {
 private:
 	vector<Vertex> verts;
 	vector<Triangle> triangles;
-	//vector<TriNorm> triangle_norms;
 	float *triangle_norms;
 
 	void build_triangle_norms();
