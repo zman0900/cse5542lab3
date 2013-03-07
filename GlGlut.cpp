@@ -134,6 +134,10 @@ void GlGlut::reshapeWrapper(int w, int h) {
 GlGlut::GlGlut() {
 	screen_width = DEF_SCREEN_W;
 	screen_height = DEF_SCREEN_H;
+	xform_mode = XFORM_NONE;
+	x_angle = 0.0f;
+	y_angle = 0.0f;
+	scale_size = 1.0f;
 }
 
 GlGlut::~GlGlut() {
@@ -160,29 +164,20 @@ void GlGlut::start(int *argc, char *argv[]) {
 	glutMotionFunc(mouseMotionWrapper);
 	glutReshapeFunc(reshapeWrapper);
 
-	// glew?
-#ifdef _WIN32
+	// glew
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		cerr << "Fatal Error: " << glewGetErrorString(err) << endl;
 		exit(1);
 	}
-#endif
 
+	// Setup
 	mesh = new Mesh();
 	mesh->read_obj_file("bunny.mesh");
 	mesh->rebuild_vertex_norms();
 
-	xform_mode = XFORM_NONE;
-	x_angle = 0.0f;
-	y_angle = 0.0f;
-	scale_size = 1.0f;
-
-	// Setup
-	/*glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(90., 1., 0., 4.);
-	glMatrixMode(GL_MODELVIEW);*/
+	// Shaders
+	programObject = Setup_GLSL("shader");
 
 	// Start
 	reshape(screen_width, screen_height);

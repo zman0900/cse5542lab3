@@ -3,10 +3,10 @@
 
 #ifdef _WIN32
 #include <Windows.h>
-#include <GL/glew.h>
 #pragma comment(lib, "glew32.lib")
 #endif
 
+#include <GL/glew.h>
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
 

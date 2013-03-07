@@ -3,10 +3,10 @@
 
 #ifdef _WIN32
 #include <Windows.h>
-#include <GL/glew.h>
 #pragma comment(lib, "glew32.lib")
 #endif
 
+#include <GL/glew.h>
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
 
@@ -17,6 +17,7 @@
 
 #include "mesh.h"
 #include "MY_MATH.h"
+#include "MY_GLSL.h"
 
 #define DEF_SCREEN_W 800
 #define DEF_SCREEN_H 800
@@ -35,6 +36,7 @@ protected:
 	int screen_width;
 	int screen_height;
 	Mesh *mesh;
+	GLuint programObject;
 
 	int xform_mode;
 	int press_x, press_y;
