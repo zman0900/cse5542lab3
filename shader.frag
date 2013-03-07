@@ -1,9 +1,8 @@
-varying vec4 fragment_color; 
+varying vec4 fragment_color;
 
-//
-// this shader just assigned the fragment wiith the interpolated color 
-//
-void main() 
+void main()
 {
-     gl_FragColor = fragment_color;	
-} 
+	// Just set a constant color for now
+	//gl_FragColor = vec4(0.5, 1.0, 0.5, 1.0);
+	gl_FragColor = fragment_color;
+}

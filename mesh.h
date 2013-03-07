@@ -47,7 +47,7 @@ public:
 	~Mesh();
 	void read_obj_file(const char* filename);
 	void rebuild_vertex_norms();
-	void render();
+	void render(GLuint shader_program);
 	void write_obj_file(const char* filename);
 };
 

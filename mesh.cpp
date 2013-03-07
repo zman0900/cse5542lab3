@@ -162,25 +162,24 @@ void Mesh::rebuild_vertex_norms() {
 	}
 }
 
-void Mesh::render() {
+void Mesh::render(GLuint shader_program) {
 	if (!vbo_ready) init_vbo();
 
 	glBindBuffer(GL_ARRAY_BUFFER, vertVBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, triVBO);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glVertexPointer(3, GL_FLOAT, sizeof(Vertex),
-	                reinterpret_cast<void*>(offsetof(Vertex, pos)));
-	glNormalPointer(GL_FLOAT, sizeof(Vertex),
-	               reinterpret_cast<void*>(offsetof(Vertex, norm)));
+	GLuint c0=glGetAttribLocation(shader_program, "vertex_position");
+	GLuint c1=glGetAttribLocation(shader_program, "vertex_normal");
+	glEnableVertexAttribArray(c0);
+	glEnableVertexAttribArray(c1);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glVertexAttribPointer(c0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+	                      reinterpret_cast<void*>(offsetof(Vertex, pos)));
+	glVertexAttribPointer(c1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+	                      reinterpret_cast<void*>(offsetof(Vertex, norm)));
+
 	glDrawElements(GL_TRIANGLES, triangles.size(), GL_UNSIGNED_INT,
 	               reinterpret_cast<void*>(offsetof(Triangle, index)));
-
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
 void Mesh::write_obj_file(const char* filename) {

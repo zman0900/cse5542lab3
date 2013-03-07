@@ -11,6 +11,8 @@ void GlGlut::display() {
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
+	glUseProgram(programObject);
+
 	float projection[4][4];
 	Matrix_Perpsective(60.0, 1.0, 0.1, 100, projection);
 
@@ -25,7 +27,15 @@ void GlGlut::display() {
 	Matrix_Scale(scale_size, scale_size, scale_size, temp);
 	Matrix_Multiplication(modelview, temp, modelview);
 
-	mesh->render();
+	float modelview_projection[4][4];
+	Matrix_Multiplication(projection, modelview, modelview_projection);
+	GLuint m1 = glGetUniformLocation(programObject, "local2clip_matrix");
+	// Transpose to match opengl order
+	float M[4][4];
+	Matrix_Transpose(modelview_projection, M);
+	glUniformMatrix4fv(m1, 1, GL_FALSE, &M[0][0]);
+
+	mesh->render(programObject);
 
 	glutSwapBuffers();
 }
