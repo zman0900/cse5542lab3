@@ -10,12 +10,13 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
 
-#include "mesh.h"
-
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
+
+#include "mesh.h"
+#include "MY_MATH.h"
 
 #define DEF_SCREEN_W 800
 #define DEF_SCREEN_H 800
