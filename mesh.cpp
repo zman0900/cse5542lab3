@@ -16,7 +16,6 @@ void Mesh::build_triangle_norms() {
 			e0[i]=p1[i]-p0[i];
 			e1[i]=p2[i]-p0[i];
 		}
-		TriNorm t;
 		cross(e1, e0, &triangle_norms[i*3]);
 		normalize(&triangle_norms[i*3]);
 	}
