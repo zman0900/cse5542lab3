@@ -27,9 +27,11 @@
 // MY_GLSL
 //
 // Modified to move function definitions out of header file
+// Changed detection so GLEW isn't needed
 //******************************************************************************
 
 #include "MY_GLSL.h"
+using namespace std;
 
 //******************************************************************************
 // Check the status of the GPU
@@ -51,26 +53,18 @@ void Check_GPU_Status()
 	printf(" GL version: %d.%d\n", major, minor); 
 	printf(" GLSL version: %s\n", glslVersion); 
 
-	//Now check the availability of shaders 
-	/*if (! GLEW_ARB_vertex_program) printf(" ARB vertex program is not supported!!\n");  
-	else printf(" ARB vertex program is supported!!\n");
-	if (! GLEW_ARB_vertex_shader) printf(" ARB vertex shader is not supported!!\n");  
-	else printf(" ARB vertex shader is supported!!\n");
-	if (! GLEW_ARB_fragment_program) printf(" ARB fragment program is not supported!!\n");  
-	else printf(" ARB fragment program is supported!!\n");
-	if (! GLEW_ARB_fragment_shader) printf(" ARB fragment shader is not supported!!\n");  
-	else printf(" ARB fragment shader is supported!!\n"); */
-
-	//Another way to query the shaders support 
-	if(glewGetExtension("GL_ARB_fragment_shader")      != GL_TRUE ||
-       glewGetExtension("GL_ARB_vertex_shader")        != GL_TRUE ||
-       glewGetExtension("GL_ARB_shader_objects")       != GL_TRUE ||
-       glewGetExtension("GL_ARB_shading_language_100") != GL_TRUE)
-	{
-		fprintf(stderr, "Driver does not support OpenGL Shading Language\n");
+	string ext = reinterpret_cast<char const *>(glGetString(GL_EXTENSIONS));
+	if (ext.find("GL_ARB_fragment_shader") == string::npos ||
+	     ext.find("GL_ARB_vertex_shader") == string::npos ||
+	     ext.find("GL_ARB_shader_objects") == string::npos ||
+	     ext.find("GL_ARB_shading_language_100") == string::npos ||
+	     ext.find("GL_ARB_vertex_program") == string::npos ||
+	     ext.find("GL_ARB_fragment_program") == string::npos) {
+		fprintf(stderr, "Driver does not support necessary extensions\n");
 		exit(1);
-    }
-	else fprintf(stderr, "GLSL supported and ready to go\n");
+	} else {
+		fprintf(stdout, "GLSL supported and ready to go\n");
+	}
 
 	printf(" -----------------  checking graphics capability done. \n");
 } 

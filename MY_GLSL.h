@@ -34,14 +34,15 @@
 #ifdef _WIN32
 #include <Windows.h>
 #pragma comment(lib, "glew32.lib")
+#include <GL/glew.h>
 #endif
 
-#include <GL/glew.h>
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
 
 #include <cstdio>
 #include <cstdlib>
+#include <string>
 
 //******************************************************************************
 // Check the status of the GPU

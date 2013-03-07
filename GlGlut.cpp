@@ -164,12 +164,14 @@ void GlGlut::start(int *argc, char *argv[]) {
 	glutMotionFunc(mouseMotionWrapper);
 	glutReshapeFunc(reshapeWrapper);
 
-	// glew
+	// glew?
+#ifdef _WIN32
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		cerr << "Fatal Error: " << glewGetErrorString(err) << endl;
 		exit(1);
 	}
+#endif
 
 	// Setup
 	mesh = new Mesh();
