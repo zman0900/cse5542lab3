@@ -27,6 +27,8 @@
 // Modified to move function definitions out of header file and use pi constant
 //******************************************************************************
 
+#include "MY_MATH.h"
+
 float Normalize_3D(float V[3])
 {
 	float m=sqrtf(V[0]*V[0]+V[1]*V[1]+V[2]*V[2]);
