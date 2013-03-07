@@ -27,6 +27,18 @@ void Mesh::cross(float x[], float y[], float r[]) {
 	r[2]= x[0]*y[1]-y[0]*x[1];
 }
 
+void Mesh::init_vbo() {
+	vbo_ready = true;
+	glGenBuffers(1, &vertVBO);
+	glGenBuffers(1, &triVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, vertVBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, triVBO);
+	glBufferData(GL_ARRAY_BUFFER, verts.size() * sizeof(Vertex), &verts[0],
+	             GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(Triangle),
+	             &triangles[0], GL_STATIC_DRAW);
+}
+
 float Mesh::normalize(float *x, float *r) {
 	if(r==0) r=x;
 	float m=sqrtf(x[0]*x[0]+x[1]*x[1]+x[2]*x[2]);
@@ -36,6 +48,11 @@ float Mesh::normalize(float *x, float *r) {
 	r[1]=x[1]*inv_m;
 	r[2]=x[2]*inv_m;
 	return m;
+}
+
+Mesh::Mesh() {
+	vbo_ready = false;
+	triangle_norms = NULL;
 }
 
 Mesh::~Mesh() {
@@ -49,10 +66,11 @@ void Mesh::read_obj_file(const char* filename) {
 	verts.clear();
 	triangles.clear();
 	if (triangle_norms) delete[] triangle_norms;
+	vbo_ready = false;
 
 	FILE *fp = fopen(filename, "r+");
 	char token[2];
-	int data[64];
+	unsigned int data[64];
 	while(feof(fp)==0) {
 		do { // Remove any trailing stuff from last line
 			token[0] = fgetc(fp);
@@ -91,7 +109,7 @@ void Mesh::read_obj_file(const char* filename) {
 			int data_number=0;
 			bool end = false;
 			while(feof(fp)==0) {
-				fscanf(fp, "%d", &data[data_number++]);
+				fscanf(fp, "%u", &data[data_number++]);
 				while(feof(fp)==0) {
 					char c=fgetc(fp);
 					if(c == ' ' || c == '\t') break;
@@ -142,6 +160,27 @@ void Mesh::rebuild_vertex_norms() {
 	for (int i=0; i<verts.size(); i++) {
 		normalize(verts[i].norm);
 	}
+}
+
+void Mesh::render() {
+	if (!vbo_ready) init_vbo();
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertVBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, triVBO);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glVertexPointer(3, GL_FLOAT, sizeof(Vertex),
+	                reinterpret_cast<void*>(offsetof(Vertex, pos)));
+	glNormalPointer(GL_FLOAT, sizeof(Vertex),
+	               reinterpret_cast<void*>(offsetof(Vertex, norm)));
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glDrawElements(GL_TRIANGLES, triangles.size(), GL_UNSIGNED_INT,
+	               reinterpret_cast<void*>(offsetof(Triangle, index)));
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
 void Mesh::write_obj_file(const char* filename) {

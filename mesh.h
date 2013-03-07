@@ -24,7 +24,7 @@ typedef struct {
 } Vertex;
 
 typedef struct {
-	int index[3];
+	GLuint index[3];
 } Triangle;
 
 class Mesh {
@@ -33,13 +33,20 @@ private:
 	vector<Triangle> triangles;
 	float *triangle_norms;
 
+	bool vbo_ready;
+	GLuint vertVBO;
+	GLuint triVBO;
+
 	void build_triangle_norms();
 	void cross(float x[], float y[], float r[]);
+	void init_vbo();
 	float normalize(float *x, float *r=0);
 public:
+	Mesh();
 	~Mesh();
 	void read_obj_file(const char* filename);
 	void rebuild_vertex_norms();
+	void render();
 	void write_obj_file(const char* filename);
 };
 
