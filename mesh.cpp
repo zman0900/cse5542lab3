@@ -178,7 +178,7 @@ void Mesh::render(GLuint shader_program) {
 	glVertexAttribPointer(c1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex),
 	                      reinterpret_cast<void*>(offsetof(Vertex, norm)));
 
-	glDrawElements(GL_TRIANGLES, triangles.size(), GL_UNSIGNED_INT,
+	glDrawElements(GL_TRIANGLES, 3*triangles.size(), GL_UNSIGNED_INT,
 	               reinterpret_cast<void*>(offsetof(Triangle, index)));
 }
 
