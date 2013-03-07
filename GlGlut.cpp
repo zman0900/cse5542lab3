@@ -9,7 +9,7 @@ GlGlut *GlGlut::instance = NULL;
 //// Glut callbacks /////
 void GlGlut::display() {
 	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	//mesh->Render();
 
@@ -95,7 +95,7 @@ void GlGlut::start(int *argc, char *argv[]) {
 
 	// Init glut
 	glutInit(argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB);
+	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
 	glutInitWindowSize(screen_width, screen_height);
 	glutCreateWindow(WINDOW_TITLE);
 
