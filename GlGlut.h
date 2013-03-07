@@ -10,7 +10,7 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
 
-#include "MESH.h"
+#include "mesh.h"
 
 #define _USE_MATH_DEFINES
 #include <cmath>
@@ -30,7 +30,7 @@ protected:
 	static GlGlut *instance;
 	int screen_width;
 	int screen_height;
-	cse::MESH *mesh;
+	Mesh *mesh;
 	
 	// Glut callbacks
 	void display();

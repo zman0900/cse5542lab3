@@ -11,7 +11,7 @@ void GlGlut::display() {
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	mesh->Render();
+	//mesh->Render();
 
 	glutSwapBuffers();
 }
@@ -113,8 +113,9 @@ void GlGlut::start(int *argc, char *argv[]) {
 	}
 #endif
 
-	mesh = new cse::MESH();
-	mesh->Read_OBJ_File("bunny.mesh");
+	mesh = new Mesh();
+	mesh->read_obj_file("bunny.mesh");
+	mesh->rebuild_vertex_norms();
 
 	// Setup
 	/*glMatrixMode(GL_PROJECTION);
