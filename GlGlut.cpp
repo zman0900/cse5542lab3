@@ -107,10 +107,9 @@ void GlGlut::keyboard(unsigned char key, int mousex, int mousey) {
 			break;
 		case '2':
 			programObject = checkerboard;
-			phong_fixed_point = false;
 			break;
 		case '3':
-			phong_fixed_point = false;
+			programObject = wood;
 			break;
 		case '4':
 			programObject = phong_point;
@@ -118,7 +117,6 @@ void GlGlut::keyboard(unsigned char key, int mousex, int mousey) {
 			break;
 		case '5':
 			programObject = phong_dir;
-			phong_fixed_point = false;
 			break;
 		default:
 			//cout << "unused key: " << (int) key << endl;
@@ -263,6 +261,8 @@ void GlGlut::start(int *argc, char *argv[]) {
 	phong_point = Setup_GLSL("phong_point");
 	printf("Loading shader checkerboard...\n");
 	checkerboard = Setup_GLSL("checkerboard");
+	printf("Loading shader wood...\n");
+	wood = Setup_GLSL("wood");
 	programObject = phong_point;
 
 	// Start

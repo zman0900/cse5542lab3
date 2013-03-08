@@ -36,7 +36,7 @@ protected:
 	int screen_width;
 	int screen_height;
 	Mesh *mesh;
-	GLuint programObject, phong_dir, phong_point, checkerboard;
+	GLuint programObject, phong_dir, phong_point, checkerboard, wood;
 	bool phong_fixed_point;
 
 	int xform_mode;
