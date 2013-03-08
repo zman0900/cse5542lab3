@@ -12,9 +12,9 @@ varying vec3 normal;
 //varying vec4 diffuse, ambient;
 
 // Matrices
-//uniform mat4 m_modelview;
-//uniform mat4 m_mvp;
-//uniform mat3 m_normal;
+uniform mat4 m_modelview;
+uniform mat4 m_mvp;
+uniform mat3 m_normal;
 
 // Defaults that can be specified from outside
 //uniform vec4 material_ambient = vec4(1.0, 1.0, 1.0, 1.0);
@@ -37,10 +37,10 @@ void main()
 
 	vec4 v = vec4(vertex_position, 1.0);
 
-	normal = normalize(gl_NormalMatrix * vertex_normal);
-	eye = -(gl_ModelViewMatrix * v);
+	normal = normalize(m_normal * vertex_normal);
+	eye = -(m_modelview * v);
 
-	gl_Position = gl_ModelViewProjectionMatrix * v;
+	gl_Position = m_mvp * v;
 
 ////////////////////////////////////////////////////////////////////////
 
