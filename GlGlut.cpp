@@ -203,7 +203,7 @@ GlGlut::GlGlut() {
 	xform_mode = XFORM_NONE;
 	x_angle = 0.0f;
 	y_angle = 0.0f;
-	scale_size = 1.0f;
+	scale_size = 8.0f;
 	phong_fixed_point = false;
 }
 
@@ -263,7 +263,7 @@ void GlGlut::start(int *argc, char *argv[]) {
 	checkerboard = Setup_GLSL("checkerboard");
 	printf("Loading shader wood...\n");
 	wood = Setup_GLSL("wood");
-	programObject = phong_point;
+	programObject = wood;
 
 	// Start
 	reshape(screen_width, screen_height);
