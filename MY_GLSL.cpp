@@ -118,7 +118,7 @@ bool Read_Shader_Source(const char *shader_name, GLchar **vertexShader,
 GLuint Setup_GLSL(const char *name)
 {
 	//Step 1: Check the status of the GPU
-	Check_GPU_Status();
+	//Check_GPU_Status();
 
 	//Step 2: Create the objects
 	GLuint programObject;

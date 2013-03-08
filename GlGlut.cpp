@@ -77,7 +77,7 @@ void GlGlut::keyboard(unsigned char key, int mousex, int mousey) {
 			exit(EXIT_SUCCESS);
 			break;
 		case '1':
-			
+			programObject = phong_point;
 			break;
 		case '2':
 			
@@ -87,6 +87,9 @@ void GlGlut::keyboard(unsigned char key, int mousex, int mousey) {
 			break;
 		case '4':
 			
+			break;
+		case '5':
+			programObject = phong_dir;
 			break;
 		default:
 			//cout << "unused key: " << (int) key << endl;
@@ -223,7 +226,12 @@ void GlGlut::start(int *argc, char *argv[]) {
 	mesh->rebuild_vertex_norms();
 
 	// Shaders
-	programObject = Setup_GLSL("phong_directional");
+	Check_GPU_Status();
+	printf("Loading shader phong_directional...\n");
+	phong_dir = Setup_GLSL("phong_directional");
+	printf("Loading shader phong_point...\n");
+	phong_point = Setup_GLSL("phong_point");
+	programObject = phong_point;
 
 	// Start
 	reshape(screen_width, screen_height);
