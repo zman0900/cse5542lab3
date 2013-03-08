@@ -126,11 +126,11 @@ void Mesh::read_obj_file(const char* filename) {
 			}
 		}
 	}
-	printf("vert:%d norm:%d tri:%lu\n",
+	/*printf("vert:%d norm:%d tri:%lu\n",
 	       vertex_number,
 	       vertex_normal_number,
 	       triangles.size()
-	      );
+	      );*/
 	fclose(fp);
 }
 

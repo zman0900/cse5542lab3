@@ -129,19 +129,19 @@ GLuint Setup_GLSL(const char *name)
 		printf("Error creating shader program object.\n"); 
 		exit(1); 
 	} 
-	else printf("Succeeded creating shader program object.\n"); 
+	//else printf("Succeeded creating shader program object.\n"); 
 	if(!(vertexShaderObject=glCreateShader(GL_VERTEX_SHADER)))
 	{
 	  printf("Error creating vertex shader object.\n"); 
 	  exit(1); 
 	} 
-	else printf("Succeeded creating vertex shader object.\n"); 
+	//else printf("Succeeded creating vertex shader object.\n"); 
 	if(!(fragmentShaderObject = glCreateShader(GL_FRAGMENT_SHADER)))
 	{
 		printf("Error creating fragment shader object.\n"); 
 		exit(1); 
 	} 
-	else printf("Succeeded creating fragment shader object.\n"); 
+	//else printf("Succeeded creating fragment shader object.\n"); 
 
 	//Step 3: Load the shaders from the disk into the two shader objects
 	GLchar* vertexShaderSource=0;
