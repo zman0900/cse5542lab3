@@ -37,6 +37,7 @@ protected:
 	int screen_height;
 	Mesh *mesh;
 	GLuint programObject, phong_dir, phong_point;
+	bool phong_fixed_point;
 
 	int xform_mode;
 	int press_x, press_y;

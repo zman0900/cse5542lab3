@@ -22,6 +22,15 @@ void matrix_inverse_3x3(float in[4][4], float out[3][3]) {
 	out[2][2] = (in[0][0] * in[1][1] - in[0][1] * in[1][0]) * invdet;
 }
 
+void matrix_multiply_point(float m[4][4], float v[4], float r[4]) {
+	r[0] = r[1] = r[2] = r[3] = 0.0f;
+	for (int i=0; i<4; i++) {
+		for (int j=0; j<4; j++) {
+			r[i] += m[i][j] * v[j];
+		}
+	}
+}
+
 GlGlut *GlGlut::instance = NULL;
 
 //// Glut callbacks /////
@@ -61,6 +70,20 @@ void GlGlut::display() {
 	glUniformMatrix4fv(p, 1, GL_TRUE, &modelview_projection[0][0]);
 	glUniformMatrix3fv(n, 1, GL_TRUE, &normal[0][0]);
 
+	if (programObject == phong_point) {
+		float light_pos_loc[4] = {1.0, -1.0, 1.0, 1.0};
+		float (*light_pos)[4] = &light_pos_loc;
+		if (phong_fixed_point) {
+			// Multiply light's position by model view matrix to keep it
+			// fixed with respect to mesh object
+			float light_pos_mv[4];
+			matrix_multiply_point(modelview, light_pos_loc, light_pos_mv);
+			light_pos = &light_pos_mv;
+		}
+		GLuint l = glGetUniformLocation(programObject, "light_pos");
+		glUniform4fv(l, 1, *light_pos);
+	}
+
 	mesh->render(programObject);
 
 	glutSwapBuffers();
@@ -78,18 +101,21 @@ void GlGlut::keyboard(unsigned char key, int mousex, int mousey) {
 			break;
 		case '1':
 			programObject = phong_point;
+			phong_fixed_point = false;
 			break;
 		case '2':
-			
+			phong_fixed_point = false;
 			break;
 		case '3':
-			
+			phong_fixed_point = false;
 			break;
 		case '4':
-			
+			programObject = phong_point;
+			phong_fixed_point = true;
 			break;
 		case '5':
 			programObject = phong_dir;
+			phong_fixed_point = false;
 			break;
 		default:
 			//cout << "unused key: " << (int) key << endl;
@@ -177,6 +203,7 @@ GlGlut::GlGlut() {
 	x_angle = 0.0f;
 	y_angle = 0.0f;
 	scale_size = 1.0f;
+	phong_fixed_point = false;
 }
 
 GlGlut::~GlGlut() {
