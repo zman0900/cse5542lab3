@@ -2,7 +2,7 @@ CSE 5542 Lab 3
 Dan Ziemba
 
 Compile instructions
-====================
+================================================================================
 
 Linux
 -----
@@ -13,8 +13,37 @@ Run the following in the source directory:
 Windows
 -------
 A Visual Studio 2012 solution file is included.
-Ensure that you have (free)glut and glew installed and Visual Studio can them.
+Ensure that you have (free)glut and glew installed and Visual Studio can find
+them.
 
+
+Running the program
+================================================================================
+
+Linux
+-----
+From the source directory, run:
+	./lab3
+
+Windows
+-------
+After building, the file cse5542lab3.exe should be in the same directory at the
+code.  If not, find it and put it in the same folder as bunny.mesh and the 
+*.vert and *.frag files.  Double click to run it.
+
+
+Program instructions
+================================================================================
+Running the program will display instructions on a console standard output.
+
+I have implemented the fixed location point light which is assigned to key 4.
+This uses the same phong shader as the point light fixed to the camera.
+I have also implemented a directional light with phong shading and assigned it
+to key 5.  This is used as a base for the wood and checkerboard shaders.
+
+
+Windows Notes
+================================================================================
 For a 64 bit system and using freeglut, the following files in these locations
 might work:
 	C:\Windows\SysWOW64\freeglut.dll
@@ -32,19 +61,3 @@ might work:
 	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32mxs.lib
 	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32mx.lib
 	C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\lib\glew32s.lib
-
-Running the program
-===================
-
-Linux
------
-From the source directory, run:
-	./lab3
-
-Windows
--------
-Find and double click cse5542lab3.exe or run from command prompt
-
-Program instructions
-====================
-Running the program will display instructions on a console standard output.
