@@ -223,7 +223,7 @@ void GlGlut::start(int *argc, char *argv[]) {
 	mesh->rebuild_vertex_norms();
 
 	// Shaders
-	programObject = Setup_GLSL("shader");
+	programObject = Setup_GLSL("phong_directional");
 
 	// Start
 	reshape(screen_width, screen_height);
