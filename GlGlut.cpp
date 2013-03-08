@@ -104,6 +104,7 @@ void GlGlut::keyboard(unsigned char key, int mousex, int mousey) {
 			phong_fixed_point = false;
 			break;
 		case '2':
+			programObject = checkerboard;
 			phong_fixed_point = false;
 			break;
 		case '3':
@@ -258,6 +259,8 @@ void GlGlut::start(int *argc, char *argv[]) {
 	phong_dir = Setup_GLSL("phong_directional");
 	printf("Loading shader phong_point...\n");
 	phong_point = Setup_GLSL("phong_point");
+	printf("Loading shader checkerboard...\n");
+	checkerboard = Setup_GLSL("checkerboard");
 	programObject = phong_point;
 
 	// Start
