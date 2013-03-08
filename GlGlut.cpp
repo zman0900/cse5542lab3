@@ -47,6 +47,8 @@ void GlGlut::display() {
 	Matrix_LookAt(0, 0, 5, 0, 0, 0, 0, 1, 0, modelview);
 
 	float temp[4][4];
+	Matrix_Translate(0.0, -1.0, 0.0, temp);
+	Matrix_Multiplication(modelview, temp, modelview);
 	Matrix_Rotate(x_angle, 0, 1, 0, temp);
 	Matrix_Multiplication(modelview, temp, modelview);
 	Matrix_Rotate(y_angle, 1, 0, 0, temp);
