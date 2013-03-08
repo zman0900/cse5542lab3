@@ -5,14 +5,46 @@ varying vec3 normal;
 varying vec3 light;*/
 //uniform vec3 l_dir;// = {0.759924, 0.022798, 0.649612};
 
-varying vec3 normal, halfVector;
-varying vec4 diffuse, ambient;
+varying vec4 eye;
+varying vec3 normal;
+//varying vec3 normal, halfVector;
+//varying vec4 diffuse, ambient;
 
-uniform vec4 material_specular = vec4(1.0, 1.0, 1.0, 1.0);
-uniform float material_shininess = 10.0;
+uniform vec4 ambient = vec4(0.2, 0.2, 0.2, 1.0);
+uniform vec4 diffuse = vec4(0.0, 0.0, 1.0, 1.0);
+uniform vec4 specular = vec4(1.0, 1.0, 1.0, 1.0);
+uniform float shininess = 50.0;
+
+//uniform vec4 material_specular = vec4(1.0, 1.0, 1.0, 1.0);
+//uniform float material_shininess = 10.0;
+
+uniform vec3 lightDir = vec3(0.0, -1.0, 1.0);
 
 void main()
 {
+
+///////////////////////////////////////////////////////////////////////
+///// ATTEMPT WITHOUT GL_LIGHTSOURCE
+
+	vec4 spec = vec4(0.0);
+
+	vec3 n = normalize(normal);
+	vec3 e = normalize(vec3(eye));
+	float intensity = max(dot(n, lightDir), 0.0);
+
+	if (intensity > 0.0) {
+		vec3 h = normalize(lightDir + e);
+		float intSpec = max(dot(h, n), 0.0);
+		spec = specular * pow(intSpec, shininess);
+	}
+
+	gl_FragColor = max(intensity * diffuse + spec, ambient);
+
+////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////
+///// WORKING
+/*
 	vec3 n, halfV, lightDir;
 	float NdotL, NdotHV;
 
@@ -31,7 +63,8 @@ void main()
 	}
 	
 	gl_FragColor = color;
-
+*/
+///////////////////////////////////////////////////////////////////////////
 
 
 

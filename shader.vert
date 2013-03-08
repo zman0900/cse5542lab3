@@ -6,10 +6,10 @@ attribute vec3 vertex_position;
 attribute vec3 vertex_normal;
 
 // The color output into the fragment shader
-//varying vec3 eye;
-varying vec3 normal, halfVector;
-//varying vec3 light;
-varying vec4 diffuse, ambient;
+varying vec4 eye;
+varying vec3 normal;
+//varying vec3 normal, halfVector;
+//varying vec4 diffuse, ambient;
 
 // Matrices
 //uniform mat4 m_modelview;
@@ -17,8 +17,8 @@ varying vec4 diffuse, ambient;
 //uniform mat3 m_normal;
 
 // Defaults that can be specified from outside
-uniform vec4 material_ambient = vec4(1.0, 1.0, 1.0, 1.0);
-uniform vec4 material_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
+//uniform vec4 material_ambient = vec4(1.0, 1.0, 1.0, 1.0);
+//uniform vec4 material_diffuse = vec4(1.0, 1.0, 1.0, 1.0);
 
 void main()
 {
@@ -31,8 +31,22 @@ void main()
 	eye = -v_view;
 
 	gl_Position = m_mvp * v;*/
+	
+///////////////////////////////////////////////////////////////////////
+///// ATTEMPT WITHOUT GL_LIGHTSOURCE
 
+	vec4 v = vec4(vertex_position, 1.0);
 
+	normal = normalize(gl_NormalMatrix * vertex_normal);
+	eye = -(gl_ModelViewMatrix * v);
+
+	gl_Position = gl_ModelViewProjectionMatrix * v;
+
+////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////
+//// WORKING
+/*
 	vec4 v = vec4(vertex_position, 1.0);
 
 	normal = normalize(gl_NormalMatrix * vertex_normal);
@@ -46,4 +60,6 @@ void main()
 	ambient += material_ambient * gl_LightSource[0].ambient;
 
 	gl_Position = gl_ModelViewProjectionMatrix * v;
+*/
+///////////////////////////////////////////////////////////////////////////
 }

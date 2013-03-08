@@ -4,13 +4,6 @@ using namespace std;
 
 namespace lab3 {
 
-const GLfloat GlGlut::ambient[4] = {0.2, 0.2, 0.2, 1.0};
-const GLfloat GlGlut::light0Position[4] = {0.0, 0.15, 5.0, 1.0};
-const GLfloat GlGlut::ambient0[4] = {0.0, 0.0, 0.0, 1.0};
-const GLfloat GlGlut::diffuse0[4] = {0.8, 0.8, 0.8, 1.0};
-const GLfloat GlGlut::specular0[4] = {0.8, 0.8, 0.8, 1.0};
-const GLfloat GlGlut::spotDir0[3] = {0.0, 0.0, -1.0};
-
 // Use to get transpose of inverse of upper 3x3 from modelview
 void matrix_transpose_inverse_3x3(float in[4][4], float out[3][3]) {
 	float invdet = 1.0f/(in[0][0]*(in[1][1]*in[2][2]-in[2][1]*in[1][2])
@@ -64,6 +57,9 @@ void GlGlut::display() {
 
 	glUseProgram(programObject);
 
+///////////////////////////////////////////////////////////////////////////
+///  OLD WAY
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(60, 1, .1, 100);
@@ -72,12 +68,11 @@ void GlGlut::display() {
 	glLoadIdentity();
 	gluLookAt(0,0,5,0,0,0,0,1,0);
 
-	glLightfv(GL_LIGHT0, GL_POSITION, light0Position);
-	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spotDir0);
-
 	glRotatef(x_angle, 0, 1,0);
 	glRotatef(y_angle, 1,0,0);
 	glScalef(scale_size, scale_size, scale_size);
+
+////////////////////////////////////////////////////////////////////////////
 
 	/*float projection[4][4];
 	Matrix_Perpsective(60.0, 1.0, 0.1, 100, projection);
@@ -276,8 +271,6 @@ GlGlut::GlGlut() {
 	x_angle = 0.0f;
 	y_angle = 0.0f;
 	scale_size = 1.0f;
-
-	light0 = true;
 }
 
 GlGlut::~GlGlut() {
@@ -325,12 +318,6 @@ void GlGlut::start(int *argc, char *argv[]) {
 	mesh = new Mesh();
 	mesh->read_obj_file("bunny.mesh");
 	mesh->rebuild_vertex_norms();
-
-	// Lights
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient0);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse0);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular0);
 
 	// Shaders
 	programObject = Setup_GLSL("shader");
