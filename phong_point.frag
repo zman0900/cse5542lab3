@@ -6,7 +6,7 @@ varying vec3 light_dir;
 
 // Defaults that can be specified from outside
 uniform vec4 ambient = vec4(0.2, 0.2, 0.2, 1.0);
-uniform vec4 diffuse = vec4(0.0, 0.0, 1.0, 1.0);
+uniform vec4 diffuse = vec4(0.0, 0.0, 0.3, 1.0);
 uniform vec4 specular = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float shininess = 10.0;
 
