@@ -2,6 +2,7 @@
 
 varying vec4 eye;
 varying vec3 normal;
+varying vec3 pos;
 
 // Defaults that can be specified from outside
 uniform vec4 ambient = vec4(0.2, 0.2, 0.2, 1.0);
@@ -10,12 +11,15 @@ uniform vec4 specular = vec4(1.0, 1.0, 1.0, 1.0);
 uniform float shininess = 50.0;
 
 uniform vec3 lightDir = vec3(1.0, -1.0, 1.0);
-uniform float check_size = 40;
+uniform float check_size = 500.0;
 
 void main() {
-	vec2 pos = mod(gl_FragCoord.xy, vec2(check_size * 2));
-	if (pos.x > check_size && pos.y > check_size)
-		discard;
+	// x' = k(x-2floor(x/2)) doesn't seem to work properly, this is close
+	int xd = int(floor(fract(abs(pos.x)) * check_size));
+	int yd = int(floor(fract(abs(pos.y)) * check_size));
+	int xm = int(mod(xd, 10));
+	int ym = int(mod(yd, 10));
+	if (xm < 4 && ym < 4) discard;
 
 	vec4 spec = vec4(0.0);
 
