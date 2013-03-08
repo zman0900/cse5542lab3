@@ -42,7 +42,16 @@ protected:
 	int press_x, press_y;
 	float x_angle,y_angle;
 	float scale_size;
-	
+
+	static const GLfloat ambient[4];
+	static const GLfloat light0Position[4];
+	static const GLfloat ambient0[4];
+	static const GLfloat diffuse0[4];
+	static const GLfloat specular0[4];
+	static const GLfloat spotDir0[3];
+
+	bool light0;
+
 	// Glut callbacks
 	void display();
 	void idle();

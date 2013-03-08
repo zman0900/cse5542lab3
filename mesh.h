@@ -30,7 +30,7 @@ typedef struct {
 
 class Mesh {
 private:
-	vector<Vertex> verts;
+	//vector<Vertex> verts;
 	vector<Triangle> triangles;
 	float *triangle_norms;
 
@@ -43,6 +43,7 @@ private:
 	void init_vbo();
 	float normalize(float *x, float *r=0);
 public:
+vector<Vertex> verts;
 	Mesh();
 	~Mesh();
 	void read_obj_file(const char* filename);
