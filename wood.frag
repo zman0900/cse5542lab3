@@ -17,7 +17,7 @@ uniform vec3 lightDir = vec3(1.0, -1.0, 1.0);
 uniform float grain_density = 1000000.0;
 
 void main() {
-	float w = sin(sqrt(grain_density*(pow(pos.x,2)+pow(pos.z,2))));
+	float w = sin(sqrt(grain_density*(pow(abs(pos.x),2)+pow(abs(pos.z),2))));
 	vec4 wood = (((w+1.0)/2.0)*wood_dark) + ((1.0-((w+1.0)/2.0))*wood_light);
 
 	vec4 spec = vec4(0.0);
